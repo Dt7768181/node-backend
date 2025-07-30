@@ -4,11 +4,15 @@ import cors from "cors";
 import userRoute from "./routes/userRoute.js";
 import productRoute from "./routes/productRoute.js";
 import orderRoute from "./routes/orderRoute.js"
+import dotenv from "dotenv"
+dotenv.config();
+const dbUser=encodeURIComponent(process.env.DBUSER);
+const dbPass=encodeURIComponent(process.env.DBPASS);
 const app = express();
 app.use(express.json());
 app.use(cors());
 mongoose
-  .connect("mongodb://localhost:27017/grietdb")
+  .connect(`mongodb+srv://${dbUser}:${dbPass}@cluster0.shspjdy.mongodb.net/grietdb?retryWrites=true&w=majority&appName=Cluster0`)
   .then(() => {
     app.listen(8080, () => {
       console.log("Server is running on port 8080");
